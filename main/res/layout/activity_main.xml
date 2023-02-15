@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    >
+
+    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+        android:id="@+id/mainBackgroundCanvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+    <include
+        android:id="@+id/mainToolbar"
+        layout="@layout/toolbar_main"
+        />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:translationZ="10dp"
+        android:id="@+id/mainFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </androidx.fragment.app.FragmentContainerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainRecyclerViewGroups"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainToolbar"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+     />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/encypted"
+        android:textColor="@color/setting_color"
+        app:layout_constraintTop_toBottomOf="@id/mainRecyclerViewGroups"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+    <ImageButton
+        android:id="@+id/mainContactsButton"
+        android:layout_width="50dp"
+        android:background="@drawable/round_edges_big"
+        android:backgroundTint="@color/cool_blue"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_group_24"
+        android:text="@string/contacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:tint="@color/white" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

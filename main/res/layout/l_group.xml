@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/menuHolderLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_group2"
+    android:padding="10dp">
+
+    <ImageButton
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/background_group"
+        android:backgroundTint="@color/cool_blue"
+        android:padding="5dp"
+        android:id="@+id/menuHolderPhoto"
+        >
+    </ImageButton>
+
+
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/menuHolderPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/menuHolderDate"
+        android:layout_marginEnd="30dp"
+        android:id="@+id/menuHolderTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="title"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:textSize="20sp"
+        >
+    </TextView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/setting_color"
+        android:id="@+id/menuHolderLastMessage"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toStartOf="@id/menuHolderDate"
+        app:layout_constraintStart_toStartOf="@id/menuHolderTitle"
+        app:layout_constraintTop_toBottomOf="@id/menuHolderTitle"
+        android:text="last message"
+        />
+
+    <TextView
+        android:id="@+id/menuHolderDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/white"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="1.1.2222"
+        >
+    </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

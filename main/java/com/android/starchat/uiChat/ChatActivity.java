@@ -1,0 +1,139 @@
+package com.android.starchat.uiChat;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
+import android.opengl.GLSurfaceView;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
+import com.android.starchat.R;
+import com.android.starchat.contacts.Group;
+import com.android.starchat.glRenderer.GLRenderer;
+import com.android.starchat.uiMain.mainActivity.MainActivity;
+
+public class ChatActivity extends AppCompatActivity {
+    private GLSurfaceView glSurfaceView;
+    private GLRenderer renderer;
+    private Toolbar toolbar;
+    private ChatActivityViewModel viewModel;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(ChatActivityViewModel.class);
+        viewModel.setGroup(this);
+        setContentView(R.layout.activity_chat);
+        setOpenGL();
+        setBackButton();
+        setSendButton();
+        setTouchControls();
+        viewModel.setValueEventListenerForNewMessages();
+        setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason();
+    }
+
+
+
+
+    private void setOpenGL(){
+        glSurfaceView = findViewById(R.id.glSurfaceView);
+        glSurfaceView.setEGLContextClientVersion(2);
+        renderer = new GLRenderer(this);
+        glSurfaceView.setRenderer(renderer);
+    }
+
+    private void setBackButton(){
+        toolbar = findViewById(R.id.toolbarChat);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+
+    private void setSendButton(){
+        final EditText editText = findViewById(R.id.mainEditText);
+        viewModel.startUpText(renderer);
+        ImageButton imageButton = findViewById(R.id.mainSendButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.textToRenderer(editText,renderer);
+            }
+        });
+    }
+
+    private void setTouchControls(){
+        glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return viewModel.handleMotionEvent(view,motionEvent,glSurfaceView,renderer);
+            }
+        });
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        glSurfaceView.onPause();
+        viewModel.removeValueEventListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        glSurfaceView.onResume();
+        viewModel.setValueEventListenerForNewMessages();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.removeValueEventListener();
+    }
+
+    public Group getGroup(){
+        return viewModel.getGroup();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.group_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menuGroupSettings){
+            Fragment groupFragment = new GroupFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.fragmentContainerChatGroup,groupFragment).commit();
+        }
+        return true;
+    }
+    private void setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+}

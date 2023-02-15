@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:translationZ="10dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <TextView
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/verifyTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/verifyExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_title"
+        android:textSize="25sp"
+        android:layout_marginHorizontal="30dp"
+        android:textAlignment="center"
+        />
+    <TextView
+        android:id="@+id/verifyExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/verifyTitle"
+        app:layout_constraintBottom_toTopOf="@id/verifyCodeInput"
+        android:textSize="16sp"
+        android:textColor="@color/setting_color"
+        android:text="@string/verify_explanation"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        />
+    <EditText
+        android:id="@+id/verifyCodeInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        app:layout_constraintTop_toBottomOf="@id/verifyExplanation"
+        app:layout_constraintBottom_toTopOf="@id/verifyResend"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        />
+
+    <Button
+        android:id="@+id/verifyResend"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="@string/verify_resend"
+        app:layout_constraintTop_toBottomOf="@id/verifyCodeInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/verifyChange"
+        />
+    <Button
+        android:id="@+id/verifyChange"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="10dp"
+        android:text="@string/verify_change"
+        android:width="140dp"
+        app:layout_constraintTop_toTopOf="@id/verifyResend"
+        app:layout_constraintBottom_toBottomOf="@id/verifyResend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/verifyResend"
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

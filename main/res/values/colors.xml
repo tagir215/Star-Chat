@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="star_wars_color">#FFD500</color>
+    <color name="half_opaque_green">#50497E68</color>
+    <color name="non_opaque_green">#90497E68</color>
+    <color name="cool_blue">#FF1035c0</color>
+    <color name="toolbar_color">@color/cool_blue</color>
+    <color name="setting_color">#8E8E8E</color>
+    <color name="dark">#151515</color>
+    <color name="red">#B30000</color>
+    <color name="opaque_red">#20B30000</color>
+    <color name="green">#00A103</color>
+    <color name="background_color">#ECECEC</color>
+    <color name="almost_invisible">#E3E3E3</color>
+</resources>

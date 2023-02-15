@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include layout="@layout/toolbar_chat"
+        android:id="@+id/toolbarChooser"
+        />
+
+    <TextView
+        android:id="@+id/chooserTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chooser_choose_people"
+        android:textSize="30sp"
+        android:textColor="@color/non_opaque_green"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/toolbarChooser"
+        android:layout_marginTop="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewChooser"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/chooserTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_24"
+        app:tint="@color/white"
+        android:background="@drawable/round_edges"
+        android:backgroundTint="@color/green"
+        android:translationZ="10dp"
+        android:padding="20dp"
+        android:visibility="gone"
+        android:id="@+id/chooserOk"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

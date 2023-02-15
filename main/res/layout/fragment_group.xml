@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+
+
+    <include
+        android:id="@+id/toolbarGroup"
+        layout="@layout/toolbar_group"/>
+
+    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+        android:id="@+id/groupBackgroundCanvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewGroup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarGroup"
+        android:layout_marginTop="0px"
+        android:layout_width="0dp"
+        android:layout_marginLeft="-100dp"
+        android:layout_marginRight="-100dp"
+        android:layout_height="160dp"
+        android:background="@android:color/transparent"
+        android:translationZ="2dp"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/lineaLayoutSettings"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            android:translationZ="2dp"
+            android:padding="5dp"
+            >
+            <include
+                android:id="@+id/groupAddPerson"
+                layout="@layout/l_settings"/>
+            <include
+                android:id="@+id/groupAddViaLink"
+                layout="@layout/l_settings"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/groupLeaveGroup"
+                layout="@layout/l_settings"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lineaLayoutSettings2"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:translationZ="2dp"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@id/lineaLayoutSettings"
+            >
+            <include
+                android:id="@+id/groupNotificationSettings"
+                layout="@layout/l_settings"
+                />
+            <include
+                android:id="@+id/groupMediaSettings"
+                layout="@layout/l_settings"
+                />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

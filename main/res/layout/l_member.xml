@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="match_parent"
+    android:id="@+id/memberLayout"
+    android:layout_gravity="center_vertical"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/memberPhoto"
+        android:background="@drawable/background_group"
+        android:padding="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/memberNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/memberNumber"
+        app:layout_constraintStart_toStartOf="@id/memberPhoto"
+        app:layout_constraintEnd_toEndOf="@id/memberPhoto"
+        app:layout_constraintTop_toBottomOf="@id/memberPhoto"
+        app:layout_constraintBottom_toTopOf="@id/memberMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0401992929"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:ellipsize="end"
+        android:maxLines="1"
+        />
+    <TextView
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/memberMessage"
+        android:layout_width="match_parent"
+        android:textSize="10dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/setting_color"
+        android:text="Hello I am using Star Chat"
+        app:layout_constraintEnd_toEndOf="@id/memberPhoto"
+        app:layout_constraintStart_toStartOf="@id/memberPhoto"
+        app:layout_constraintTop_toBottomOf="@id/memberNumber"
+        app:layout_constraintBottom_toTopOf="@id/memberStatus"
+        android:ellipsize="end"
+        android:maxLines="1"
+        />
+    <TextView
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/memberStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="offline"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/memberPhoto"
+        app:layout_constraintStart_toStartOf="@id/memberPhoto"
+        app:layout_constraintTop_toBottomOf="@id/memberMessage"
+        android:ellipsize="end"
+        android:maxLines="1"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

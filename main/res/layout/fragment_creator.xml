@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/toolbar_chat"
+        android:id="@+id/toolbarCreator"
+        />
+
+    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:padding="20dp"
+        android:src="@drawable/ic_baseline_add_photo_alternate_24"
+        android:background="@drawable/background_group"
+        android:backgroundTint="@color/star_wars_color"
+        android:id="@+id/creatorGroupPhoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarCreator"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/write_here"
+        android:textColor="@color/white"
+        android:textColorHint="@color/non_opaque_green"
+        android:id="@+id/creatorGroupNameEditText"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/creatorGroupPhoto"
+        app:layout_constraintEnd_toEndOf="@id/creatorGroupPhoto"
+        app:layout_constraintTop_toBottomOf="@id/creatorGroupPhoto"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/creatorRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/creatorGroupNameEditText"
+        android:layout_marginTop="50dp"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_24"
+        app:tint="@color/white"
+        android:background="@drawable/round_edges"
+        android:backgroundTint="@color/green"
+        android:translationZ="10dp"
+        android:padding="20dp"
+        android:visibility="gone"
+        android:id="@+id/creatorOk"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

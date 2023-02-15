@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/editLayout"
+    android:paddingTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/editImage"
+        android:layout_width="50dp"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/mainEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+        android:text="edit"
+        android:textColor="@color/non_opaque_green"
+        app:layout_constraintStart_toEndOf="@id/editImage"
+        app:layout_constraintEnd_toStartOf="@id/profileEdit"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/editValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/profileEdit"
+        app:layout_constraintStart_toStartOf="@id/mainEditText"
+        app:layout_constraintTop_toBottomOf="@id/mainEditText"
+        android:text="@string/default_about"
+        android:textStyle="bold"
+        />
+
+    <ImageButton
+        android:background="@android:color/transparent"
+        android:id="@+id/profileEdit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="24dp"
+        app:tint="@color/star_wars_color"
+        android:layout_marginEnd="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/almost_invisible"
+        app:layout_constraintTop_toBottomOf="@id/editValue"
+        android:layout_marginTop="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

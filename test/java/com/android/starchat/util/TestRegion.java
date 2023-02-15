@@ -1,0 +1,22 @@
+package com.android.starchat.util;
+import com.android.starchat.uiStart.Country;
+import com.android.starchat.uiStart.RegionHelper;
+import com.android.starchat.uiStart.StartActivityViewModel;
+
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Set;
+
+public class TestRegion {
+
+
+
+    @Test
+    public void testCountries(){
+        Country[] countries = RegionHelper.createCountries(new StartActivityViewModel());
+        for (int i=0; i<countries.length; i++){
+            System.out.println(countries[i].getName()+" "+countries[i].getCode()+" "+countries[i].getRegion());
+        }
+    }
+}
