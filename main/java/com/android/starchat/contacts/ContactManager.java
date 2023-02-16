@@ -82,7 +82,7 @@ public class ContactManager {
     }
 
 
-    public static void createStarUsers(Context context, Listener listener){
+    public static void createUsers(Context context, Listener listener){
         ApplicationUser user = ((MainApplication)context.getApplicationContext()).getUser();
         if(user.getUserContacts().isEmpty()){
             List<ContactPhone> contactList = user.getPhoneContacts();

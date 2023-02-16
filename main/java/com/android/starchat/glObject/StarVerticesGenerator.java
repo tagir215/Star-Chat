@@ -32,10 +32,11 @@ public class StarVerticesGenerator {
             float y = (float)c[1];
             float z = (float)c[2];
             float s = 7f;
+            float brightness = 0.3f;
             Random rColor = new Random();
-            float r =1f - rColor.nextFloat()/4;
-            float g =1f - rColor.nextFloat()/4;
-            float b =1f - rColor.nextFloat()/4;
+            float r =(1-rColor.nextFloat()/4) * brightness;
+            float g =(1-rColor.nextFloat()/4) * brightness;
+            float b =(1-rColor.nextFloat()/4) * brightness;
 
 
             v[i  ]=x;   v[1+i]=y;    v[2+i]=z+s;   v[3+i]=r;  v[4+i]=g;  v[5+i]=b;

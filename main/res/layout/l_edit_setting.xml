@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:tint="@color/star_wars_color" />
 
     <TextView
         android:id="@+id/mainEditText"
@@ -23,7 +23,7 @@
         android:textSize="15sp"
         android:layout_marginLeft="20dp"
         android:text="edit"
-        android:textColor="@color/non_opaque_green"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/editImage"
         app:layout_constraintEnd_toStartOf="@id/profileEdit"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="17sp"
-        android:textColor="@color/white"
+        android:textColor="@color/setting_color"
         app:layout_constraintEnd_toStartOf="@id/profileEdit"
         app:layout_constraintStart_toStartOf="@id/mainEditText"
         app:layout_constraintTop_toBottomOf="@id/mainEditText"
@@ -44,8 +44,8 @@
     <ImageButton
         android:background="@android:color/transparent"
         android:id="@+id/profileEdit"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_baseline_edit_24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

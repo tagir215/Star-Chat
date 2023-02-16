@@ -52,7 +52,7 @@ public class DAOGroup {
     private void subscribe(String id){
         FirebaseMessaging.getInstance().subscribeToTopic(id);
     }
-    
+
 
     private void uploadTime(DatabaseReference databaseReference){
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());

@@ -1,14 +1,11 @@
 package com.android.starchat.uiMain.contactsFragment;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.starchat.R;
 import com.android.starchat.contacts.ContactManager;
 import com.android.starchat.core.ApplicationUser;
 import com.android.starchat.core.MainApplication;
@@ -31,7 +28,7 @@ public class ContactViewModel extends ViewModel {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
-        ContactManager.createStarUsers(context, new ContactManager.Listener() {
+        ContactManager.createUsers(context, new ContactManager.Listener() {
             @Override
             public void onChange() {
                 adapter.notifyDataSetChanged();

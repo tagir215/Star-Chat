@@ -26,6 +26,7 @@ import com.android.starchat.contacts.Group;
 import com.android.starchat.contacts.User;
 import com.android.starchat.core.MainApplication;
 import com.android.starchat.util.BitmapHelper;
+import com.android.starchat.util.Crop;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -131,7 +132,8 @@ public class CreatorFragment extends Fragment {
             public void onActivityResult(Uri result) {
                 imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 bitmap = BitmapHelper.getBitmap_fromUri(getContext(),result);
-                imageButton.setImageURI(result);
+                bitmap = Crop.cropCircle(bitmap);
+                imageButton.setImageBitmap(bitmap);
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {

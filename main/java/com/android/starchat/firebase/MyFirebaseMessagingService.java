@@ -25,6 +25,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String CHANNEL_ID = "notification_channel";
     private static final String CHANNEL_NAME = "star chat";
 
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         if(message.getNotification()!=null){

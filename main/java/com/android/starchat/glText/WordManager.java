@@ -82,7 +82,11 @@ public class WordManager {
     public ArrayList<CharacterInfo> textToCharacterInfos(String text){
         ArrayList<CharacterInfo> characterInfos = new ArrayList<>();
         for (int i=0; i<text.length(); i++){
-            characterInfos.add(infoHashMap.get(text.charAt(i)));
+            CharacterInfo ci = infoHashMap.get(text.charAt(i));
+            if(ci!=null)
+                characterInfos.add(ci);
+            else
+                characterInfos.add(infoHashMap.get('#'));
         }
         return characterInfos;
     }

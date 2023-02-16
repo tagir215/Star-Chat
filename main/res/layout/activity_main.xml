@@ -35,15 +35,7 @@
         android:layout_width="match_parent"
      />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/encypted"
-        android:textColor="@color/setting_color"
-        app:layout_constraintTop_toBottomOf="@id/mainRecyclerViewGroups"
-        android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        />
+
 
 
 
