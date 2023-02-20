@@ -1,7 +1,5 @@
 package com.android.starchat.contacts;
 
-import com.android.starchat.R;
-
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -10,6 +8,7 @@ public class User implements Serializable {
     private String name;
     private String about;
     private byte[] photo;
+    private boolean online;
 
     public User(){};
 
@@ -52,5 +51,13 @@ public class User implements Serializable {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 }

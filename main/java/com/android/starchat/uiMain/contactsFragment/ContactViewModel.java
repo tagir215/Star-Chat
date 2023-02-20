@@ -22,6 +22,7 @@ public class ContactViewModel extends ViewModel {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
+
     public void createRecyclerViewUsers(Context context, RecyclerView recyclerView,SelectedUsersLHSet selectedUsersLHSet){
         ApplicationUser user = ((MainApplication)context.getApplicationContext()).getUser();
         RVAdapterUsers adapter = new RVAdapterUsers(context,user.getUserContacts(),selectedUsersLHSet);

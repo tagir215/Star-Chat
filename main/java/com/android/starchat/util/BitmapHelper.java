@@ -16,7 +16,7 @@ public class BitmapHelper {
 
     public static byte[] getJPEG_fromBitmap(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50,byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 

@@ -8,5 +8,7 @@
     <item android:id="@+id/menuGroupExitGroup"
         android:title="@string/exitGroup"/>
     <item android:id="@+id/menuGroupSettings"
-        android:title="@string/editGroup"/>
+        android:title="@string/groupInfo"/>
+    <item android:id="@+id/menuDeleteGroup"
+        android:title="@string/deleteGroup"/>
 </menu>

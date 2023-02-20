@@ -5,6 +5,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class DAOUser {
     private final User user;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
@@ -23,6 +25,18 @@ public class DAOUser {
         if(user.getPhoto()!=null)
             photoR.child(user.getId()).putBytes(user.getPhoto());
     }
+    public void uploadContact(User contact){
+        DatabaseReference contactsR = databaseReference.child(user.getId()).child("contacts");
+        contactsR.child(contact.getPhone()).setValue(contact.getName());
 
+    }
+    public void setStatus(boolean online){
+        DatabaseReference statusR = databaseReference.child(user.getId()).child("online");
+        if(online){
+            statusR.setValue(true);
+        }else{
+            statusR.setValue(false);
+        }
+    }
 
 }

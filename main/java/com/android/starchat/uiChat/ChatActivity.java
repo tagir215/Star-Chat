@@ -1,7 +1,6 @@
 package com.android.starchat.uiChat;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,13 +16,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.android.starchat.R;
 import com.android.starchat.contacts.Group;
+import com.android.starchat.core.OnlineActivity;
 import com.android.starchat.glRenderer.GLRenderer;
 import com.android.starchat.uiMain.mainActivity.MainActivity;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends OnlineActivity {
     private GLSurfaceView glSurfaceView;
     private GLRenderer renderer;
     private Toolbar toolbar;
@@ -37,11 +38,16 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.setGroup(this);
         setContentView(R.layout.activity_chat);
         setOpenGL();
+        viewModel.setMotionEventHandler(renderer);
+        viewModel.setScrollPosition(this,renderer,findViewById(R.id.chatConstraintLayoutLines),findViewById(R.id.chatLine),findViewById(R.id.chatLineFull));
         setBackButton();
         setSendButton();
         setTouchControls();
         viewModel.setValueEventListenerForNewMessages();
         setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason();
+        Toolbar toolbar = findViewById(R.id.toolbarChat);
+        TextView textView = toolbar.findViewById(R.id.toolbarChatGroupName);
+        textView.setText(getGroup().getName());
     }
 
 
@@ -65,8 +71,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void setSendButton(){
         final EditText editText = findViewById(R.id.mainEditText);
         viewModel.startUpText(renderer);
@@ -83,11 +87,10 @@ public class ChatActivity extends AppCompatActivity {
         glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                return viewModel.handleMotionEvent(view,motionEvent,glSurfaceView,renderer);
+                return viewModel.handleMotionEvent(motionEvent);
             }
         });
     }
-
 
 
     @Override

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -22,8 +23,12 @@ import com.android.starchat.contacts.Group;
 import com.android.starchat.core.ApplicationUser;
 import com.android.starchat.core.MainApplication;
 import com.android.starchat.uiChat.ChatActivity;
+import com.android.starchat.util.DateHandler;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,15 +40,14 @@ public class RVAdapterGroups extends RecyclerView.Adapter<RVAdapterGroups.Holder
     private final MainActivity mainActivity;
     private final ApplicationUser user;
     private List<String>groupIds = new ArrayList<>();
-    private String currentDate;
+    private final Date currentDate;
+
     public RVAdapterGroups(Context context) {
         mainActivity = (MainActivity) context;
         inflater = LayoutInflater.from(context);
         user = ((MainApplication)mainActivity.getApplication()).getUser();
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        currentDate = dateFormat.format(new Date());
+        currentDate = new Date();
     }
-
 
     @NonNull
     @Override
@@ -52,21 +56,34 @@ public class RVAdapterGroups extends RecyclerView.Adapter<RVAdapterGroups.Holder
         return new HolderChats(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull RVAdapterGroups.HolderChats holder, int position) {
         Group group = user.getGroupHashMap().get(groupIds.get(position));
         holder.titleText.setText(group.getName());
-        if(currentDate.equals(group.getDate()))
-            holder.dateText.setText(group.getTime());
-        else
-            holder.dateText.setText(group.getDate());
+
+        Date date = DateHandler.stringToDate(group.getDate());
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT,Locale.getDefault());
+        if(dateFormat.format(date).equals(dateFormat.format(currentDate))){
+            DateFormat timeInstance = DateFormat.getTimeInstance(DateFormat.SHORT,Locale.getDefault());
+            holder.dateText.setText(timeInstance.format(date));
+        }else{
+            holder.dateText.setText(dateFormat.format(date));
+        }
+
         holder.lastMessage.setText(group.getLastMessage());
         if(group.getGroupJPEG()!=null){
             Bitmap bitmap = BitmapFactory.decodeByteArray(group.getGroupJPEG(),0,group.getGroupJPEG().length);
             holder.imageButton.setImageBitmap(bitmap);
+        }else{
+            holder.imageButton.setImageResource(R.drawable.ic_baseline_person_24);
         }
 
+        if(group.getNewMessages()>0){
+            holder.newMessages.setText(String.valueOf(group.getNewMessages()));
+            holder.newMessages.setVisibility(View.VISIBLE);
+        }else{
+            holder.newMessages.setVisibility(View.INVISIBLE);
+        }
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +92,9 @@ public class RVAdapterGroups extends RecyclerView.Adapter<RVAdapterGroups.Holder
                 mainActivity.startActivity(intent);
             }
         });
+        holder.layout.setTag(group.getId());
+        mainActivity.registerForContextMenu(holder.layout);
     }
-
 
     @Override
     public int getItemCount() {
@@ -92,6 +110,7 @@ public class RVAdapterGroups extends RecyclerView.Adapter<RVAdapterGroups.Holder
         TextView titleText;
         TextView dateText;
         TextView lastMessage;
+        TextView newMessages;
         public HolderChats(@NonNull View itemView) {
             super(itemView);
             imageButton = itemView.findViewById(R.id.menuHolderPhoto);
@@ -100,8 +119,11 @@ public class RVAdapterGroups extends RecyclerView.Adapter<RVAdapterGroups.Holder
             titleText = itemView.findViewById(R.id.menuHolderTitle);
             dateText = itemView.findViewById(R.id.menuHolderDate);
             lastMessage = itemView.findViewById(R.id.menuHolderLastMessage);
+            newMessages = itemView.findViewById(R.id.menuHolderNewMessages);
         }
     }
+
+
 
 
 }

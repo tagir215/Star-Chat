@@ -8,6 +8,8 @@ import com.android.starchat.contacts.ContactPhone;
 import com.android.starchat.contacts.Group;
 import com.android.starchat.contacts.User;
 import com.android.starchat.core.ApplicationUser;
+import com.android.starchat.util.Constants;
+import com.android.starchat.util.DateHandler;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -19,12 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-public class FireBase {
+public class FireBaseQueries {
 
-    public static void getUsersByPhoneNumber(ContactPhone contact, List<User> userList, Listener listener){
+    public static void getUserByPhoneNumber(ContactPhone contact, ApplicationUser applicationUser, Listener listener){
         String name = contact.getName();
         String phoneNumber = contact.getPhoneNumber();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -36,11 +38,12 @@ public class FireBase {
                 for(DataSnapshot userSnapshot : snapshot.getChildren()){
                     String phoneF = userSnapshot.child("phone").getValue(String.class);
                     if(phoneF!=null && phoneF.equals(phoneNumber)){
-                        User starUser = userSnapshot.getValue(User.class);
-                        starUser.setName(name);
-                        userList.add(starUser);
+                        User user = userSnapshot.getValue(User.class);
+                        user.setName(name);
+                        applicationUser.getUserContacts().add(user);
+                        applicationUser.getDaoUser().uploadContact(user);
                         listener.onDataChanged();
-                        getUserPhoto(starUser,listener);
+                        getUserPhoto(user,listener);
                         break;
                     }
                 }
@@ -79,47 +82,76 @@ public class FireBase {
     }
 
     public static void getGroupsByUsers(ApplicationUser user, Listener listener){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("groups");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference groupsR = FirebaseDatabase.getInstance().getReference("groups");
+
+        Query query = groupsR.orderByChild("members/"+user.getId());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot groupSnapshots : snapshot.getChildren()){
+                for (DataSnapshot groupSnapShot : snapshot.getChildren()){
 
-                    DataSnapshot members = groupSnapshots.child("members");
-                    for(DataSnapshot memberSnapshots : members.getChildren()){
+                    Group group = groupSnapShot.getValue(Group.class);
+                    user.getGroupHashMap().put(group.getId(), group);
+                    getGroupPhoto(group,listener);
 
-                        if(Objects.equals(memberSnapshots.getValue(String.class), user.getId())){
-                            Group group = groupSnapshots.getValue(Group.class);
-                            for (DataSnapshot member : members.getChildren()){
-                                group.getMemberIds().add(member.getValue(String.class));
-                            }
-                            DataSnapshot text = groupSnapshots.child("text");
-                            for(DataSnapshot message : text.getChildren()){
-                                group.getTextList().add(message.getValue(String.class));
-                            }
-                            getGroupPhoto(group,listener);
-                            user.getGroupHashMap().put(group.getId(), group);
-                            listener.onDataChanged();
-                        }
+                    getMembers(group,groupSnapShot,user.getId(),listener);
 
-                    }
-
+                    listener.onDataChanged();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase",error+" couldn't find group");
             }
         });
+    }
 
+    private static void getMembers(Group group, DataSnapshot groupSnapshot,String userId,Listener listener){
+        DatabaseReference membersR = groupSnapshot.child("members").getRef();
+        membersR.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot memberSnapshot : snapshot.getChildren()){
+                    group.getMemberIds().add(memberSnapshot.getKey());
+                    if(memberSnapshot.getKey().equals(userId))
+                        group.setLastVisited(memberSnapshot.getValue(String.class));
+                }
+                getText(group,groupSnapshot,listener);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase","member not found");
+            }
+        });
+    }
 
+    private static void getText(Group group, DataSnapshot groupSnapshot,Listener listener){
+        DatabaseReference textR = groupSnapshot.child("text").getRef();
+        Date currentDate = DateHandler.stringToDate(group.getLastVisited());
+        textR.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot text : snapshot.getChildren()){
+                    group.getTextList().add(text.getValue(String.class));
+                    Date date = DateHandler.stringToDate(text.getKey());
+                    if(currentDate.compareTo(date)<0){
+                        group.setNewMessages(group.getNewMessages()+1);
+                        listener.onDataChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase","text not found");
+            }
+        });
     }
 
     public static void getUserPhoto(User user, Listener listener){
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference photoR = firebaseStorage.getReference().child("images").child(user.getId());
-        photoR.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        photoR.getBytes(Constants.MAX_FIREBASE_IMAGE_SIZE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 user.setPhoto(bytes);
@@ -136,7 +168,7 @@ public class FireBase {
     public static void getGroupPhoto(Group group,Listener listener){
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference photoR = firebaseStorage.getReference().child("images").child(group.getId());
-        photoR.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        photoR.getBytes(Constants.MAX_FIREBASE_IMAGE_SIZE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 group.setGroupJPEG(bytes);
@@ -149,6 +181,7 @@ public class FireBase {
             }
         });
     }
+
     public interface Listener{
         void onDataChanged();
     }

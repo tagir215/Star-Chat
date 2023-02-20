@@ -1,6 +1,8 @@
 package com.android.starchat.firebase;
 
 import com.android.starchat.contacts.Group;
+import com.android.starchat.contacts.User;
+import com.android.starchat.util.DateHandler;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -41,10 +43,8 @@ public class DAOGroup {
         }
         DatabaseReference groupM = groupR.child("members");
         List<String>memberIds = group.getMemberIds();
-        int i=0;
         for(String id : memberIds){
-            groupM.child("member"+i).setValue(id);
-            i++;
+            groupM.child(id).setValue(DateHandler.dateToString(new Date()));
         }
         subscribe(group.getId());
     }
@@ -55,21 +55,23 @@ public class DAOGroup {
 
 
     private void uploadTime(DatabaseReference databaseReference){
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        databaseReference.child("date").setValue(dateFormat.format(new Date()));
-        DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
-        databaseReference.child("time").setValue(timeFormat.format(new Date()));
+        databaseReference.child("date").setValue(DateHandler.dateToString(new Date()));
     }
 
     public void uploadText(String text){
         textR = databaseReference.child(group.getId()).child("text");
-        textR.child(String.valueOf(System.currentTimeMillis())).setValue(text);
+        textR.child(DateHandler.dateToString(new Date())).setValue(text);
         databaseReference.child(group.getId()).child("lastMessage").setValue(text);
         uploadTime(databaseReference.child(group.getId()));
     }
 
-    public String getText(){
-        return "wow";
+    public void deleteGroup(){
+        databaseReference.child(group.getId()).removeValue();
+    }
+
+    public void uploadLastVisited(User user){
+        DatabaseReference membersR = databaseReference.child(group.getId()).child("members");
+        membersR.child(user.getId()).setValue(DateHandler.dateToString(new Date()));
     }
 
     public void addValueEventListener(ValueEventListener valueEventListener){

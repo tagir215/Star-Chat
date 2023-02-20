@@ -9,4 +9,6 @@ public class Constants {
     public static final String USER = "user";
     public static final String ID = "id";
     public static final float TITLE_SCALE = 2;
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final long MAX_FIREBASE_IMAGE_SIZE = 1024*1024;
 }

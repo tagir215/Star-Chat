@@ -10,13 +10,14 @@ public class Group {
     private String id;
     private String name;
     private String lastMessage;
-    private String time;
     private String date;
     private List<String>memberIds = new ArrayList<>();
     private final List<String>textList = new ArrayList<>();
     private byte[] groupJPEG;
-    private List<User>userList = new ArrayList<>();
+    private final List<User>userList = new ArrayList<>();
     private DAOGroup daoGroup;
+    private int newMessages;
+    private String lastVisited;
 
     public Group(){}
 
@@ -59,6 +60,11 @@ public class Group {
     public List<String>getTextList(){
         return textList;
     }
+
+    public void setDaoGroup(DAOGroup daoGroup) {
+        this.daoGroup = daoGroup;
+    }
+
     public DAOGroup getDaoGroup() {
         return daoGroup;
     }
@@ -82,14 +88,6 @@ public class Group {
         this.lastMessage = lastMessage;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getDate() {
         return date;
     }
@@ -98,5 +96,19 @@ public class Group {
         this.date = date;
     }
 
+    public int getNewMessages() {
+        return newMessages;
+    }
 
+    public void setNewMessages(int newMessages) {
+        this.newMessages = newMessages;
+    }
+
+    public String getLastVisited() {
+        return lastVisited;
+    }
+
+    public void setLastVisited(String lastVisited) {
+        this.lastVisited = lastVisited;
+    }
 }

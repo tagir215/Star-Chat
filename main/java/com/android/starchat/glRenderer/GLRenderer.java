@@ -5,8 +5,6 @@ import static android.opengl.Matrix.setLookAtM;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
-import android.util.Log;
 
 import com.android.starchat.glObject.StarObject;
 import com.android.starchat.glText.WordManager;
@@ -22,8 +20,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     private float[] mvpMatrixText = new float[16];
     private float[] mvpMatrixStar = new float[16];
     private float[] viewProjectionMatrix = new float[16];
-    private float distance = -3;
-    private float targetDistance = 0;
+    private ScrollPosition scrollPosition;
     private WordManager wordManager;
     private String theText;
     private StarObject starObject;
@@ -63,8 +60,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClearColor(0f, 0f, 0f, 1.0f);
 
-        if(targetDistance<distance)
-            distance-=0.01f;
+        scrollPosition.updateDistance();
 
         if(wordManager.textObject!=null){
             transformText();
@@ -78,7 +74,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         float[] modelMatrix = new float[16];
         MatrixHelper.identityM(modelMatrix);
         MatrixHelper.rotateM(modelMatrix,90 ,1,0,0);
-        MatrixHelper.translateM(modelMatrix,-Constants.TEXT_WIDTH/2,0,distance);
+        MatrixHelper.translateM(modelMatrix,-Constants.TEXT_WIDTH/2,0, scrollPosition.distance);
         mvpMatrixText = MatrixHelper.multiplyMM(viewProjectionMatrix, modelMatrix);
 
     }
@@ -99,20 +95,20 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         }
         wordManager.createTextObject(text);
         int TEXT_OFFSET = -3;
-        targetDistance = -(wordManager.textObject.getTextHeight() + TEXT_OFFSET);
+        scrollPosition.targetDistance = -(wordManager.textObject.getTextHeight() + TEXT_OFFSET);
+        scrollPosition.end = scrollPosition.targetDistance;
     }
 
     public void setText(String text){
         theText = text;
     }
-    public void scrollDistance(float dy){
-        distance += dy*Constants.SCALE;
-        targetDistance = distance;
+
+
+    public ScrollPosition getScrollPosition() {
+        return scrollPosition;
     }
-    public void setDistance(float distance){
-        this.distance = distance;
-    }
-    public float getTargetDistance(){
-        return targetDistance;
+
+    public void setScrollPosition(ScrollPosition scrollPosition) {
+        this.scrollPosition = scrollPosition;
     }
 }

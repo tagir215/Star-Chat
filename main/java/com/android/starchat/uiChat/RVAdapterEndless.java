@@ -3,6 +3,7 @@ package com.android.starchat.uiChat;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,19 +46,20 @@ public class RVAdapterEndless extends RecyclerView.Adapter<RVAdapterEndless.Memb
         User user = group.getUserList().get(actualPosition);
         holder.message.setText(user.getAbout());
         holder.number.setText(user.getName());
-        holder.status.setText("offline");
+        if(user.isOnline()){
+            holder.status.setText("online");
+            holder.status.setTextColor(Color.GREEN);
+        }else{
+            holder.status.setText("offline");
+            holder.status.setTextColor(Color.RED);
+        }
         if(user.getPhoto()!=null){
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getPhoto(),0,user.getPhoto().length);
             holder.imageButton.setImageBitmap(bitmap);
         }else{
             holder.imageButton.setImageResource(R.drawable.ic_baseline_person_24);
         }
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
 

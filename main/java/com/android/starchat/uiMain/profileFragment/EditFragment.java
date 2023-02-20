@@ -21,10 +21,10 @@ import com.android.starchat.firebase.DAOUser;
 import com.android.starchat.util.FileHelper;
 
 public class EditFragment extends Fragment {
-    EditText editText;
-    Button save;
-    Button cancel;
-    ApplicationUser user;
+    private EditText editText;
+    private Button save;
+    private Button cancel;
+    private ApplicationUser user;
 
     @Nullable
     @Override

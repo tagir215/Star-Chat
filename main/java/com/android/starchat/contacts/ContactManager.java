@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.android.starchat.core.ApplicationUser;
 import com.android.starchat.core.MainApplication;
-import com.android.starchat.firebase.FireBase;
+import com.android.starchat.firebase.FireBaseQueries;
 import com.android.starchat.uiMain.mainActivity.MainActivity;
 import com.android.starchat.util.PermissionHelper;
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ import java.util.List;
 
 public class ContactManager {
 
-    private static boolean checkContactPermission(MainActivity mainActivity){
+    public static boolean checkContactPermission(MainActivity mainActivity,int requestCode){
         if(ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED){
             if (ActivityCompat.shouldShowRequestPermissionRationale(mainActivity,Manifest.permission.READ_CONTACTS)){
                 createContactPermissionRationaleDisplay(mainActivity);
             }else{
-                ActivityCompat.requestPermissions(mainActivity,new String[]{Manifest.permission.READ_CONTACTS},0);
+                ActivityCompat.requestPermissions(mainActivity,new String[]{Manifest.permission.READ_CONTACTS},requestCode);
             }
             return false;
         }
@@ -38,7 +38,7 @@ public class ContactManager {
         new AlertDialog.Builder(mainActivity)
                 .setTitle("Contacts Permission required")
                 .setMessage("Please allow the Contacts Permission. Star Chat will help you connect " +
-                        "to your contacts. The information will not be used for anything else lol")
+                        "to your contacts. The information will not be used for anything else... maybe")
                 .setPositiveButton("SETTINGS", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -53,8 +53,7 @@ public class ContactManager {
 
 
     public static void createContacts(MainActivity mainActivity){
-        if(!checkContactPermission(mainActivity))
-            return;
+
         List<ContactPhone> contactList = new ArrayList<>();
         ContentResolver contentResolver = mainActivity.getContentResolver();
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);
@@ -87,7 +86,7 @@ public class ContactManager {
         if(user.getUserContacts().isEmpty()){
             List<ContactPhone> contactList = user.getPhoneContacts();
             for(int i=0; i<contactList.size(); i++){
-                FireBase.getUsersByPhoneNumber(contactList.get(i), user.getUserContacts(), new FireBase.Listener() {
+                FireBaseQueries.getUserByPhoneNumber(contactList.get(i), user, new FireBaseQueries.Listener() {
                     @Override
                     public void onDataChanged() {
                         listener.onChange();

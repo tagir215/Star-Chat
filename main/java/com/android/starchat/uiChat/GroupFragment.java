@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,11 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.starchat.R;
 import com.android.starchat.contacts.Group;
-import com.android.starchat.firebase.FireBase;
-import com.android.starchat.uiStart.StartActivity;
+import com.android.starchat.firebase.FireBaseQueries;
 import com.android.starchat.util.BitmapHelper;
-import com.android.starchat.util.FileHelper;
-import com.android.starchat.util.SelectionInterface;
 
 public class GroupFragment extends Fragment {
 
@@ -62,7 +58,8 @@ public class GroupFragment extends Fragment {
     private void setPhoto(View view){
         ImageButton groupPhoto = view.findViewById(R.id.toolbarGroupPhoto);
         groupPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        groupPhoto.setImageBitmap(BitmapHelper.getBitmap_fromJPEG(group.getGroupJPEG()));
+        if(group.getGroupJPEG()!=null)
+            groupPhoto.setImageBitmap(BitmapHelper.getBitmap_fromJPEG(group.getGroupJPEG()));
     }
     private void setTexts(View view){
         TextView groupTitle = view.findViewById(R.id.toolbarGroupName);
@@ -78,17 +75,17 @@ public class GroupFragment extends Fragment {
         manager.scrollToPosition(500);
         RVAdapterEndless adapter = new RVAdapterEndless(context,group);
         Group group = ((ChatActivity)getActivity()).getGroup();
-        if(group.getUserList().isEmpty())
-            FireBase.getUsersByIds(group.getUserList(), group.getMemberIds(), new FireBase.Listener() {
-                @Override
-                public void onDataChanged() {
-                    adapter.notifyDataSetChanged();
-                    if(!positionSet){
-                        manager.scrollToPosition(500);
-                        positionSet = true;
-                    }
+        group.getUserList().clear();
+        FireBaseQueries.getUsersByIds(group.getUserList(), group.getMemberIds(), new FireBaseQueries.Listener() {
+            @Override
+            public void onDataChanged() {
+                adapter.notifyDataSetChanged();
+                if(!positionSet){
+                    manager.scrollToPosition(500);
+                    positionSet = true;
                 }
-            });
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
         setSettingButtons();
@@ -156,7 +153,7 @@ public class GroupFragment extends Fragment {
                 R.drawable.ic_baseline_image_24,
         };
         String[] settingTexts = {
-                "add Person",
+                "add People",
                 "add via link",
                 "leave group",
                 "notification settings",

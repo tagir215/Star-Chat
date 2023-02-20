@@ -95,4 +95,10 @@ public class ApplicationUser extends User {
         user2.setPhoto(getPhoto());
         return user2;
     }
+
+    public DAOUser getDaoUser() {
+        if(daoUser==null)
+            daoUser=new DAOUser(this);
+        return daoUser;
+    }
 }

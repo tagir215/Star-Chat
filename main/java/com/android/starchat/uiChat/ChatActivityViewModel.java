@@ -1,11 +1,14 @@
 package com.android.starchat.uiChat;
 
+import android.app.Activity;
+import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModel;
 
 import com.android.starchat.contacts.Group;
@@ -13,6 +16,8 @@ import com.android.starchat.core.ApplicationUser;
 import com.android.starchat.core.MainApplication;
 import com.android.starchat.firebase.DAOGroup;
 import com.android.starchat.glRenderer.GLRenderer;
+import com.android.starchat.glRenderer.MotionEventHandler;
+import com.android.starchat.glRenderer.ScrollPosition;
 import com.android.starchat.util.FileHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,15 +26,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.File;
 import java.util.List;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class ChatActivityViewModel extends ViewModel {
 
     private StringBuilder stringBuilder = new StringBuilder();
     private float textDistance;
-    private float oldY;
-    private float momentum;
-    private volatile boolean interruptMomentum;
     private boolean started;
     private GLRenderer renderer;
+    MotionEventHandler motionEventHandler;
     private Group group;
     private DAOGroup daoGroup;
     private File saveFile;
@@ -50,16 +55,22 @@ public class ChatActivityViewModel extends ViewModel {
             }
             if(group!=null)
                 appendStringList(group.getTextList());
+
+
         }
     }
+    public void setMotionEventHandler(GLRenderer renderer){
+        motionEventHandler = new MotionEventHandler(renderer);
+    }
+    public void setScrollPosition(Activity activity,GLRenderer renderer, ConstraintLayout csLayout, View timeline, View fullTimeLine){
+        renderer.setScrollPosition(new ScrollPosition(activity,renderer,csLayout,timeline,fullTimeLine));
+    }
 
+    protected boolean handleMotionEvent(MotionEvent event){
 
-    Runnable momentumRunnable = new Runnable() {
-        @Override
-        public void run() {
-            momentumLoop();
-        }
-    };
+        return motionEventHandler.handleMotionEvent(event);
+    }
+
 
     protected void setFile(File file){
         this.saveFile = file;
@@ -76,28 +87,14 @@ public class ChatActivityViewModel extends ViewModel {
             FileHelper.saveInternalStorage(saveFile,stringBuilder.toString());
     }
 
-    private void momentumLoop(){
-        while (Math.abs(momentum)>0.01f){
-            if(interruptMomentum)
-                break;
 
-            momentum = momentum/1.1f;
-            renderer.scrollDistance(momentum);
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
 
     protected void startUpText(GLRenderer renderer){
         this.renderer = renderer;
         renderer.setText(stringBuilder.toString());
-        renderer.setDistance(textDistance);
-
+        renderer.getScrollPosition().setDistance(textDistance);
     }
 
     protected void textToRenderer(EditText editText, GLRenderer renderer){
@@ -107,7 +104,7 @@ public class ChatActivityViewModel extends ViewModel {
         daoGroup.uploadText(text);
         updateRenderer();
         editText.setText("");
-        textDistance = renderer.getTargetDistance();
+        textDistance = renderer.getScrollPosition().getTargetDistance();
     }
 
 
@@ -115,28 +112,7 @@ public class ChatActivityViewModel extends ViewModel {
         renderer.createTextObject(stringBuilder.toString());
     }
 
-    protected boolean handleMotionEvent(View view, MotionEvent event, GLSurfaceView glSurfaceView, GLRenderer renderer){
-        if(event==null)
-            return false;
 
-
-        float y = event.getY();
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            oldY = y;
-            interruptMomentum = true;
-        }
-        if(event.getAction()==MotionEvent.ACTION_UP){
-            interruptMomentum = false;
-            Thread thread = new Thread(momentumRunnable);
-            thread.start();
-            return false;
-        }
-
-        momentum = y-oldY;
-        renderer.scrollDistance(momentum);
-        oldY = y;
-        return true;
-    }
 
     private void appendStringList(List<String>stringList){
         if(!stringList.isEmpty()){
@@ -155,6 +131,7 @@ public class ChatActivityViewModel extends ViewModel {
         daoGroup.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                daoGroup.uploadLastVisited(user);
                 if(!started){
                     started = true;
                     return;

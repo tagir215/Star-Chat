@@ -17,6 +17,42 @@
         android:id="@+id/toolbarChat"
         layout="@layout/toolbar_chat"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatConstraintLayoutLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbarChat"
+        android:background="@color/black">
+
+        <View
+            android:id="@+id/chatLine"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:paddingHorizontal="10dp"
+            android:background="@color/setting_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <View
+            android:id="@+id/chatLineFull"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="100dp"
+            android:translationZ="1dp"
+            android:background="@color/red"
+            app:layout_constraintTop_toTopOf="@id/chatLine"
+            app:layout_constraintBottom_toBottomOf="@id/chatLine"
+            app:layout_constraintStart_toStartOf="@id/chatLine"
+            app:layout_constraintEnd_toEndOf="@id/chatLine"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerChatGroup"
         android:layout_width="match_parent"
