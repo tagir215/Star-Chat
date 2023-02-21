@@ -18,7 +18,7 @@ public class MainActivityViewModel extends ViewModel {
         recyclerView.setNestedScrollingEnabled(false);
         RVAdapterGroups adapter = new RVAdapterGroups(context);
         user.getGroupHashMap().clear();
-        FireBaseQueries.getGroupsByUsers(user, new FireBaseQueries.Listener() {
+        FireBaseQueries.getGroupsByUser(user, new FireBaseQueries.Listener() {
             @Override
             public void onDataChanged() {
                 adapter.notifyDataSetChanged();

@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/toolbar_chat"
-        android:id="@+id/toolbarCreator"
+    <include layout="@layout/toolbar_empty"
+        android:id="@+id/creatorToolbar"
         />
 
     <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
@@ -23,7 +23,7 @@
         android:id="@+id/creatorGroupPhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarCreator"
+        app:layout_constraintTop_toBottomOf="@id/creatorToolbar"
         />
     <EditText
         android:layout_width="0dp"

@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.idling.CountingIdlingResource;
@@ -162,6 +164,18 @@ public class MainActivity extends OnlineActivity {
         super.onResume();
         if(mainApplication.getUser().getId()!=null)
             viewModel.createRecyclerViewGroups(this,recyclerViewGroups);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mainFragmentContainer);
+        if(fragment!=null){
+            getSupportFragmentManager().beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+        else
+            super.onBackPressed();
     }
 
     private final CountingIdlingResource idlingResource = new CountingIdlingResource("Firebase");

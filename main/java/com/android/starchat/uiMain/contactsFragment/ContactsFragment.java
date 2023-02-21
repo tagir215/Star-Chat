@@ -26,7 +26,7 @@ public class ContactsFragment extends Fragment {
         viewModel.createRecyclerViewContacts(getActivity(), recyclerViewPhone);
         RecyclerView recyclerViewUsers = view.findViewById(R.id.contactsRecyclerViewUsers);
         viewModel.createRecyclerViewUsers(getActivity(), recyclerViewUsers,null);
-        setBackButton(view);
+        setToolbar(view);
     }
 
 
@@ -36,12 +36,13 @@ public class ContactsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_contacts,container,false);
     }
 
-    private void setBackButton(View view){
+    private void setToolbar(View view){
         Toolbar toolbar = view.findViewById(R.id.contactsToolbar);
+        toolbar.setTitle(getResources().getString(R.string.contacts));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getParentFragmentManager().beginTransaction().remove(ContactsFragment.this).commit();
+                ContactsFragment.this.getParentFragmentManager().beginTransaction().remove(ContactsFragment.this).commit();
             }
         });
     }

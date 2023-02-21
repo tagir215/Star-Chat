@@ -28,7 +28,8 @@ public class Group {
     }
 
     public void uploadToFirebase(){
-        daoGroup = new DAOGroup(this);
+        if(daoGroup==null)
+            daoGroup = new DAOGroup(this);
         daoGroup.initGroup();
     }
 
@@ -66,6 +67,8 @@ public class Group {
     }
 
     public DAOGroup getDaoGroup() {
+        if(daoGroup==null)
+            daoGroup = new DAOGroup(this);
         return daoGroup;
     }
     public List<User> getUserList() {

@@ -81,10 +81,10 @@ public class FireBaseQueries {
         }
     }
 
-    public static void getGroupsByUsers(ApplicationUser user, Listener listener){
+    public static void getGroupsByUser(ApplicationUser user, Listener listener){
         DatabaseReference groupsR = FirebaseDatabase.getInstance().getReference("groups");
 
-        Query query = groupsR.orderByChild("members/"+user.getId());
+        Query query = groupsR.orderByChild("members/"+user.getId()).startAt("");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,10 +93,9 @@ public class FireBaseQueries {
                     Group group = groupSnapShot.getValue(Group.class);
                     user.getGroupHashMap().put(group.getId(), group);
                     getGroupPhoto(group,listener);
-
                     getMembers(group,groupSnapShot,user.getId(),listener);
-
                     listener.onDataChanged();
+
                 }
             }
 

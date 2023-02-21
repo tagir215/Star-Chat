@@ -5,7 +5,7 @@
     android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include
-        layout="@layout/toolbar_chat"
+        layout="@layout/toolbar_empty"
         android:id="@+id/profileToolbar"
         />
     <com.android.starchat.uiMain.mainActivity.BackgroundCanvas

@@ -27,7 +27,6 @@ import com.android.starchat.uiMain.mainActivity.MainActivity;
 public class ChatActivity extends OnlineActivity {
     private GLSurfaceView glSurfaceView;
     private GLRenderer renderer;
-    private Toolbar toolbar;
     private ChatActivityViewModel viewModel;
 
 
@@ -40,11 +39,10 @@ public class ChatActivity extends OnlineActivity {
         setOpenGL();
         viewModel.setMotionEventHandler(renderer);
         viewModel.setScrollPosition(this,renderer,findViewById(R.id.chatConstraintLayoutLines),findViewById(R.id.chatLine),findViewById(R.id.chatLineFull));
-        setBackButton();
+        setToolbar();
         setSendButton();
         setTouchControls();
         viewModel.setValueEventListenerForNewMessages();
-        setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason();
         Toolbar toolbar = findViewById(R.id.toolbarChat);
         TextView textView = toolbar.findViewById(R.id.toolbarChatGroupName);
         textView.setText(getGroup().getName());
@@ -60,8 +58,9 @@ public class ChatActivity extends OnlineActivity {
         glSurfaceView.setRenderer(renderer);
     }
 
-    private void setBackButton(){
-        toolbar = findViewById(R.id.toolbarChat);
+    private void setToolbar(){
+        Toolbar toolbar = findViewById(R.id.toolbarChat);
+        setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +106,7 @@ public class ChatActivity extends OnlineActivity {
         viewModel.setValueEventListenerForNewMessages();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -126,15 +126,27 @@ public class ChatActivity extends OnlineActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.chatFragmentContainer);
+        if(fragment!=null){
+            getSupportFragmentManager().beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+        else
+            super.onBackPressed();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menuGroupSettings){
             Fragment groupFragment = new GroupFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.fragmentContainerChatGroup,groupFragment).commit();
+            transaction.add(R.id.chatFragmentContainer,groupFragment).commit();
         }
         return true;
     }
-    private void setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason(){
+    private void setDisplayShowTitleEnabledBecauseOnCreateOptionsMenuIsNotCalledForSomeReason(Toolbar toolbar){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }

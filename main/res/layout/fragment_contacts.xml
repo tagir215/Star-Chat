@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/toolbar_chat"
+    <include layout="@layout/toolbar_empty"
         android:id="@+id/contactsToolbar"/>
 
 

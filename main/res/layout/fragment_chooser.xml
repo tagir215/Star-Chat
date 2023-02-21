@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <include layout="@layout/toolbar_chat"
-        android:id="@+id/toolbarChooser"
+    <include layout="@layout/toolbar_empty"
+        android:id="@+id/chooserToolbar"
         />
 
     <TextView
@@ -22,7 +22,7 @@
         android:textSize="30sp"
         android:textColor="@color/non_opaque_green"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/toolbarChooser"
+        app:layout_constraintTop_toBottomOf="@id/chooserToolbar"
         android:layout_marginTop="20dp"
         />
 

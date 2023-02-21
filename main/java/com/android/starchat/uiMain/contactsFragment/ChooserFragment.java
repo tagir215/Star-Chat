@@ -37,10 +37,22 @@ public class ChooserFragment extends Fragment {
         selectedUsers = new SelectedUsersLHSet();
         viewModel.createRecyclerViewUsers(getContext(),recyclerView,selectedUsers);
         ok = view.findViewById(R.id.chooserOk);
-        setBackButton(view);
+        setToolbar(view);
         handleSelected();
         setOkButton();
     }
+
+    private void setToolbar(View view){
+        Toolbar toolbar = view.findViewById(R.id.chooserToolbar);
+        toolbar.setTitle(getResources().getString(R.string.new_group));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChooserFragment.this.getParentFragmentManager().beginTransaction().remove(ChooserFragment.this).commit();
+            }
+        });
+    }
+
     private void setOkButton(){
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +77,7 @@ public class ChooserFragment extends Fragment {
 
 
 
-    private void setBackButton(View view){
-        Toolbar toolbar = view.findViewById(R.id.toolbarChooser);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChooserFragment.this.getParentFragmentManager().beginTransaction().remove(ChooserFragment.this).commit();
-            }
-        });
-    }
+
 
     private void startCreatorFragment(){
         CreatorFragment fragment = new CreatorFragment();

@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.android.starchat.R;
 import com.android.starchat.contacts.Group;
 import com.android.starchat.contacts.User;
 import com.android.starchat.core.MainApplication;
+import com.android.starchat.uiMain.contactsFragment.ChooserFragment;
 import com.android.starchat.util.BitmapHelper;
 import com.android.starchat.util.Crop;
 
@@ -50,8 +52,12 @@ public class CreatorFragment extends Fragment {
         ok = view.findViewById(R.id.creatorOk);
         setRecyclerView();
         setOKButton();
+        setToolbar(view);
         setImagePicker();
+
     }
+
+
 
     @Nullable
     @Override
@@ -124,6 +130,23 @@ public class CreatorFragment extends Fragment {
 
     }
 
+    private void setToolbar(View view){
+        Toolbar toolbar = view.findViewById(R.id.creatorToolbar);
+        toolbar.setTitle(getResources().getString(R.string.new_group));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment();
+            }
+        });
+    }
+
+    private void replaceFragment(){
+        CreatorFragment.this.getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.mainFragmentContainer,new ChooserFragment())
+                .commit();
+    }
 
 
     private void setImagePicker(){

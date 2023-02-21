@@ -2,6 +2,7 @@
     <string name="app_name">Star Chat</string>
     <string name="write_here">Write here</string>
     <string name="tap_here">Tap here for more info</string>
+    <string name="profile">Profile</string>
 
     <string name="profile_name">Name</string>
     <string name="profile_about">About</string>
@@ -27,6 +28,7 @@
 
 
     <string name="chooser_choose_people">Select group members</string>
+    <string name="new_group">new group</string>
     <string name="start_phone_number">Type your phone number</string>
     <string name="verify_title">VERIFY MOBILE NUMBER</string>
     <string name="verify_explanation">Star Chat has sent a code to your mobile number please enter it below</string>

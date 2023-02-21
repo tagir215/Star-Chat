@@ -36,7 +36,6 @@ public class ChatActivityViewModel extends ViewModel {
     private GLRenderer renderer;
     MotionEventHandler motionEventHandler;
     private Group group;
-    private DAOGroup daoGroup;
     private File saveFile;
     private ApplicationUser user;
 
@@ -51,7 +50,6 @@ public class ChatActivityViewModel extends ViewModel {
             }
             else{
                 group = user.getGroupHashMap().get(groupId);
-                daoGroup = new DAOGroup(group);
             }
             if(group!=null)
                 appendStringList(group.getTextList());
@@ -101,7 +99,7 @@ public class ChatActivityViewModel extends ViewModel {
         String text =user.getName()+":   "+ editText.getText().toString();
         if(text.equals(user.getName()+":   "))
             text = user.getName()+":   ...";
-        daoGroup.uploadText(text);
+        getGroup().getDaoGroup().uploadText(text);
         updateRenderer();
         editText.setText("");
         textDistance = renderer.getScrollPosition().getTargetDistance();
@@ -126,12 +124,10 @@ public class ChatActivityViewModel extends ViewModel {
     }
 
     public void setValueEventListenerForNewMessages(){
-        if(daoGroup==null)
-            return;
-        daoGroup.addValueEventListener(new ValueEventListener() {
+        getGroup().getDaoGroup().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                daoGroup.uploadLastVisited(user);
+                getGroup().getDaoGroup().uploadLastVisited(user);
                 if(!started){
                     started = true;
                     return;
@@ -153,7 +149,8 @@ public class ChatActivityViewModel extends ViewModel {
     }
 
     public void removeValueEventListener(){
-        daoGroup.removeValueEventListener();
+        getGroup().getDaoGroup().removeValueEventListener();
+        started = false;
     }
 
     public Group getGroup(){

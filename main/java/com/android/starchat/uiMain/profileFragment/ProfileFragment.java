@@ -129,6 +129,7 @@ public class ProfileFragment extends Fragment {
 
     private void setToolbar(){
         Toolbar toolbar = view.findViewById(R.id.profileToolbar);
+        toolbar.setTitle(getResources().getString(R.string.profile));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

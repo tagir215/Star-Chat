@@ -83,6 +83,7 @@ public class DAOGroup {
     }
     public void removeValueEventListener(){
         textR.removeEventListener(valueEventListener);
+        valueEventListener = null;
     }
 
     public DatabaseReference getTextR() {
