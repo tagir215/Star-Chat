@@ -1,2 +1,2 @@
 # Star-Chat 
-tests still uncomplete
+this project was pain
