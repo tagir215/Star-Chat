@@ -1,2 +1,2 @@
 # Star-Chat 
-this project was pain
+this project was a project
