@@ -71,7 +71,7 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     public void addValueEventListener(ValueEventListener valueEventListener){
-        if(this.valueEventListener!=null)
+        if(this.valueEventListener!=null || textR==null)
             return;
         this.valueEventListener = valueEventListener;
         textR = databaseReference.child(group.getId()).child("text");
