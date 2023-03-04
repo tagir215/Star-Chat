@@ -2,7 +2,7 @@ package com.android.starchat.util;
 
 import android.content.Context;
 
-import com.android.starchat.glText.CharacterInfo;
+import com.android.starchat.openGL.glText.CharacterInfo;
 
 import java.io.BufferedReader;
 import java.io.IOException;

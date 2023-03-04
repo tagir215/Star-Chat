@@ -1,12 +1,9 @@
 package com.android.starchat.util;
-import com.android.starchat.uiStart.Country;
-import com.android.starchat.uiStart.RegionHelper;
-import com.android.starchat.uiStart.StartActivityViewModel;
+import com.android.starchat.ui.uiStart.Country;
+import com.android.starchat.ui.uiStart.RegionHelper;
+import com.android.starchat.ui.uiStart.StartActivityViewModel;
 
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Set;
 
 public class TestRegion {
 

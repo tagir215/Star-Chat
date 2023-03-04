@@ -2,7 +2,7 @@ package com.android.starchat.util;
 
 import org.junit.Test;
 
-import com.android.starchat.glUtil.MatrixHelper;
+import com.android.starchat.openGL.glUtil.MatrixHelper;
 
 
 public class TestMatrix {

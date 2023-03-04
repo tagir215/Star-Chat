@@ -14,7 +14,7 @@
         android:id="@+id/toolbarGroup"
         layout="@layout/toolbar_group"/>
 
-    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+    <com.android.starchat.ui.uiMain.mainActivity.BackgroundCanvas
         android:id="@+id/groupBackgroundCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

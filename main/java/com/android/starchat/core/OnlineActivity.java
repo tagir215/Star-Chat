@@ -1,6 +1,5 @@
 package com.android.starchat.core;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -33,7 +32,7 @@ public class OnlineActivity extends AppCompatActivity {
     private void setStatus(boolean status){
         ApplicationUser user = ((MainApplication) getApplication()).getUser();
         if (user.getDaoUser() != null) {
-            user.getDaoUser().setStatus(status);
+            user.getDaoUser().updateStatus(status);
         }
     }
 }

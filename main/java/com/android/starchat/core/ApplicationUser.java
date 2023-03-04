@@ -1,11 +1,11 @@
 package com.android.starchat.core;
 
 import android.content.Context;
-import android.util.Log;
-import com.android.starchat.contacts.ContactPhone;
-import com.android.starchat.contacts.Group;
-import com.android.starchat.contacts.User;
-import com.android.starchat.firebase.DAOUser;
+
+import com.android.starchat.data.contacts.ContactPhone;
+import com.android.starchat.data.group.Group;
+import com.android.starchat.data.user.User;
+import com.android.starchat.data.user.UserDaoImpl;
 import com.android.starchat.util.Constants;
 import com.android.starchat.util.FileHelper;
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class ApplicationUser extends User {
     private final Context context;
-    private DAOUser daoUser;
+    private UserDaoImpl userDaoImpl;
     private List<ContactPhone>phoneContacts = new ArrayList<>();
     private List<User> userContacts = new ArrayList<>();
     private HashMap<String,Group> groupHashMap = new HashMap<>();
@@ -28,8 +28,8 @@ public class ApplicationUser extends User {
     }
 
     public void createDaoUser(){
-        daoUser = new DAOUser(this);
-        daoUser.upload();
+        userDaoImpl = new UserDaoImpl(this);
+        userDaoImpl.create();
     }
 
 
@@ -96,9 +96,9 @@ public class ApplicationUser extends User {
         return user2;
     }
 
-    public DAOUser getDaoUser() {
-        if(daoUser==null)
-            daoUser=new DAOUser(this);
-        return daoUser;
+    public UserDaoImpl getDaoUser() {
+        if(userDaoImpl ==null)
+            userDaoImpl =new UserDaoImpl(this);
+        return userDaoImpl;
     }
 }

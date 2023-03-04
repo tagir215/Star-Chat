@@ -5,18 +5,14 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
 
 import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.android.starchat.uiMain.mainActivity.MainActivity;
+import com.android.starchat.ui.uiMain.mainActivity.MainActivity;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

@@ -4,22 +4,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.android.starchat.R;
-import com.android.starchat.contacts.User;
-import com.android.starchat.glText.CharacterInfo;
+import com.android.starchat.data.user.User;
+
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 
 public class FileHelper {
 

@@ -2,8 +2,7 @@ package com.android.starchat.util;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import com.android.starchat.uiStart.Country;
-import com.android.starchat.util.Sort;
+import com.android.starchat.ui.uiStart.Country;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package com.android.starchat.util;
 
-import com.android.starchat.uiStart.Country;
+import com.android.starchat.ui.uiStart.Country;
 import java.util.Arrays;
 
 public class Sort {

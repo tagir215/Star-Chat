@@ -8,7 +8,7 @@
         layout="@layout/toolbar_empty"
         android:id="@+id/profileToolbar"
         />
-    <com.android.starchat.uiMain.mainActivity.BackgroundCanvas
+    <com.android.starchat.ui.uiMain.mainActivity.BackgroundCanvas
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

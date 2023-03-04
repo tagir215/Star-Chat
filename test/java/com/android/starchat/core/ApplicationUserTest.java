@@ -6,10 +6,6 @@ import android.content.Context;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
-
-import com.android.starchat.contacts.User;
-import com.android.starchat.util.FileHelper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,5 @@
 package com.android.starchat.core;
 
-import com.android.starchat.contacts.User;
-
 public class MainApplication extends android.app.Application {
 
     private ApplicationUser user;

@@ -7,7 +7,7 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.android.starchat.contacts.User;
+import com.android.starchat.data.user.User;
 import com.android.starchat.core.ApplicationUser;
 
 import org.junit.Test;
