@@ -1,4 +1,4 @@
-package com.android.starchat.data.firebase;
+package com.android.starchat.data.pushNotification;
 
 
 
@@ -16,18 +16,23 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.android.starchat.R;
+import com.android.starchat.core.ApplicationUser;
+import com.android.starchat.core.MainApplication;
 import com.android.starchat.ui.uiMain.mainActivity.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class FirebaseService extends FirebaseMessagingService {
     private static final String CHANNEL_ID = "notification_channel";
     private static final String CHANNEL_NAME = "star chat";
 
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
+        ApplicationUser user = ((MainApplication)getApplication()).getUser();
         if(message.getNotification()!=null){
+            if(user.getId().equals(message.getNotification().getTitle()))
+                return;
             generateNotification(message.getNotification().getTitle(),message.getNotification().getBody());
         }
     }

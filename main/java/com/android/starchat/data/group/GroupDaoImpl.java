@@ -71,11 +71,12 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     public void addValueEventListener(ValueEventListener valueEventListener){
-        if(this.valueEventListener!=null || textR==null)
+        if(this.valueEventListener!=null)
             return;
         this.valueEventListener = valueEventListener;
         textR = databaseReference.child(group.getId()).child("text");
         textR.limitToLast(1).addValueEventListener(valueEventListener);
+
     }
     public void removeValueEventListener(){
         if(valueEventListener==null)

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.android.starchat.data.group.Group;
 import com.android.starchat.core.ApplicationUser;
 import com.android.starchat.core.MainApplication;
+import com.android.starchat.data.pushNotification.NotificationManager;
 import com.android.starchat.openGL.glRenderer.GLRenderer;
 import com.android.starchat.openGL.glRenderer.MotionEventHandler;
 import com.android.starchat.openGL.glRenderer.ScrollPosition;
@@ -98,6 +99,7 @@ public class ChatActivityViewModel extends ViewModel {
         updateRenderer();
         editText.setText("");
         textDistance = renderer.getScrollPosition().getTargetDistance();
+        NotificationManager.sendNotification(group.getName(), text, group.getId());
     }
 
 

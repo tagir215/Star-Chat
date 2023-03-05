@@ -25,9 +25,11 @@ public class ApplicationUser extends User {
     public ApplicationUser(Context context) {
         this.context = context;
         loadUser();
+        if(getId()!=null)
+            createUser();
     }
 
-    public void createDaoUser(){
+    public void createUser(){
         userDaoImpl = new UserDaoImpl(this);
         userDaoImpl.create();
     }

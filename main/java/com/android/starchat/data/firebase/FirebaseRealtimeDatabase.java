@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FirebaseRealtimeDatabase {
-
+    private static final String TAG = "Firebase";
     public static void getUserByPhoneNumber(ContactPhone contact, ApplicationUser applicationUser, Listener listener){
         String name = contact.getName();
         String phoneNumber = contact.getPhoneNumber();
@@ -46,7 +46,7 @@ public class FirebaseRealtimeDatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase",error +" search by phone failed");
+                Log.e(TAG,error +" search by phone failed");
             }
         });
     }
@@ -70,7 +70,7 @@ public class FirebaseRealtimeDatabase {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("Firebase",error+" couldn't find user");
+                    Log.e(TAG,error+" couldn't find user");
                 }
             });
         }
@@ -96,6 +96,7 @@ public class FirebaseRealtimeDatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG,"group get fail");
             }
         });
     }
@@ -114,7 +115,7 @@ public class FirebaseRealtimeDatabase {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase","member not found");
+                Log.e(TAG,"member not found");
             }
         });
     }
@@ -137,7 +138,7 @@ public class FirebaseRealtimeDatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase","text not found");
+                Log.e(TAG,"text not found");
             }
         });
     }

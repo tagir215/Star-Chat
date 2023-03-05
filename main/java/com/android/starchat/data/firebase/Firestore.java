@@ -12,6 +12,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class Firestore {
+    private static final String TAG = "Firestore";
 
     public static void getGroupPhoto(Group group, FirebaseRealtimeDatabase.Listener listener){
         new Thread(new Runnable() {
@@ -28,7 +29,7 @@ public class Firestore {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Firebase","photo not found");
+                        Log.e(TAG,"photo not found");
                     }
                 });
             }
@@ -51,7 +52,7 @@ public class Firestore {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Firebase","photo not found");
+                        Log.e(TAG,"photo not found");
                     }
                 });
             }

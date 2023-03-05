@@ -7,8 +7,7 @@ public class MainApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         user = new ApplicationUser(this);
-        if(user.getId()!=null)
-            user.createDaoUser();
+
     }
     public ApplicationUser getUser(){
         return user;

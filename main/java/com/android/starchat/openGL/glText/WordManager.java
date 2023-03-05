@@ -91,7 +91,7 @@ public class WordManager {
 
 
 
-    public ArrayList<Quad> wordsToQuadList(ArrayList<Word>words){
+    public ArrayList<Quad>wordsToQuadList(ArrayList<Word>words){
         ArrayList<Quad>quads = new ArrayList<>();
         for (int i=0; i<words.size(); i++){
             quads.addAll(words.get(i).quadList);
